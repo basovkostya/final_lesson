@@ -1,5 +1,7 @@
 import time
 import pytest
+
+from pages.locators import NewLoginPageLocators
 from .pages.login_page import LoginPage
 from .pages.main_page import MainPage
 from .pages.basket_page import BasketPage
@@ -35,3 +37,11 @@ def test_guest_cant_see_product_in_basket_opened_from_main_page(browser):
     page.go_to_basket_with_header_basket()
     page.basket_is_empty()
     page.message_basket_is_empty()
+
+def test_new_login_page(browser):
+    link = 'https://my.audit.webmonitorx.ru/login'
+    page = LoginPage(browser, link)
+    page.open()
+    page.new_login_user('kbasov@webmonitorx.ru', 'Kultivator4!')
+    page.should_be_authorized_user()
+
